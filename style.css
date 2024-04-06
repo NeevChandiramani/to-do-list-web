@@ -1,0 +1,109 @@
+/* Variables */
+:root {
+    --primary-color: #5C6BC0;
+    --text-color: #333;
+    --background-color-light: #f4f4f4;
+    --background-color-dark: #333;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color-light);
+    color: var(--text-color);
+    padding: 30px;
+  }
+  
+  body.dark {
+    background-color: var(--background-color-dark);
+    color: var(--text-color);
+  }
+  
+  h1 {
+    color: inherit;
+  }
+  
+  input, select, button {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  #taskList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #taskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    border-radius: 5px;
+  }
+  
+  .remove-button {
+    background: none;
+    border: none;
+    color: #cc0000;
+    cursor: pointer;
+  }
+  
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    max-width: 400px;
+    height: auto;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    position: relative;
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
