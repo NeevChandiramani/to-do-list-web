@@ -107,3 +107,22 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  #userButton {
+    position: fixed;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    top: 18px;
+    right: 10px;
+  }
+
+  #themeButton{
+    position: fixed;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    top: 20px;
+    left: 25px;}
