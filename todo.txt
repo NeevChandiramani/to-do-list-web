@@ -4,7 +4,6 @@ todo
 - add a button to log out
 - add a button to delete account
 - add a button to change password
-- lower the text "my to do list"
 - add tags to tasks
 - add priority to tasks
 - add a button to filter tasks by tags
@@ -19,4 +18,4 @@ todo
 - add the possibility to add tasks to projects
 - add the possibility to to search for tasks by keywords
 - data syncing - Automatic syncing across devices so that users can access their to-do lists from anywhere, whether on a computer, smartphone, or tablet.
-- 
+- dark theme button not working
