@@ -1,7 +1,5 @@
 todo
 
-- hide sign in/up button when user is logged in and show user's name instead
-- add a button to log out
 - add a button to delete account
 - add a button to change password
 - add tags to tasks

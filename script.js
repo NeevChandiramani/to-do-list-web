@@ -5,15 +5,16 @@ var userModal = document.getElementById('userModal');
 var signInButton = document.getElementById('signInButton');
 var signUpButton = document.getElementById('signUpButton');
 var closeButton = document.querySelector('.close');
-
-// Mock user data for simplicity
-var users = [
-    { username: 'user1', password: 'pass1' },
-    { username: 'user2', password: 'pass2' }
-];
+var addTaskButton = document.getElementById('addTaskButton'); // Added this line
 
 // Current user
-var currentUser = null;
+var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+if (currentUser) {
+    userDisplay.textContent = 'Welcome, ' + currentUser.username + '!';
+    userButton.style.display = 'none'; // Hide the sign in/up button
+    logoutButton.style.display = 'inline-block'; // Show the logout button
+}
 
 // Show the user modal
 userButton.addEventListener('click', function() {
@@ -31,12 +32,11 @@ signInButton.addEventListener('click', function() {
     var passwordInput = document.getElementById('passwordInput').value;
 
     // Check if the user exists
-    var user = users.find(function(user) {
-        return user.username === usernameInput && user.password === passwordInput;
-    });
+    var user = JSON.parse(localStorage.getItem(usernameInput));
 
-    if (user) {
+    if (user && user.password === passwordInput) {
         currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         userDisplay.textContent = 'Welcome, ' + currentUser.username + '!';
         userButton.style.display = 'none'; // Hide the sign in/up button
         logoutButton.style.display = 'inline-block'; // Show the logout button
@@ -52,14 +52,12 @@ signUpButton.addEventListener('click', function() {
     var passwordInput = document.getElementById('passwordInput').value;
 
     // Check if the username is already taken
-    var user = users.find(function(user) {
-        return user.username === usernameInput;
-    });
+    var user = JSON.parse(localStorage.getItem(usernameInput));
 
     if (user) {
         alert('Username is already taken.');
     } else if (usernameInput && passwordInput) {
-        users.push({ username: usernameInput, password: passwordInput });
+        localStorage.setItem(usernameInput, JSON.stringify({ username: usernameInput, password: passwordInput }));
         alert('Account created successfully. Please sign in.');
     } else {
         alert('Please enter a username and password.');
@@ -69,7 +67,13 @@ signUpButton.addEventListener('click', function() {
 // Logout
 logoutButton.addEventListener('click', function() {
     currentUser = null;
+    localStorage.removeItem('currentUser');
     userDisplay.textContent = '';
     userButton.style.display = 'inline-block'; // Show the sign in/up button
     logoutButton.style.display = 'none'; // Hide the logout button
+});
+
+// Add Task
+addTaskButton.addEventListener('click', function() {
+    console.log('The "Add Task" button was clicked.');
 });
