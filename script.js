@@ -13,9 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     var taskList = document.getElementById('taskList');
 
+    tasks.sort(function(a, b) {
+        return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+
     tasks.forEach(function(task) {
         var listItem = document.createElement('li');
-        listItem.textContent = task.content;
+        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ')'; // Display due date
 
         var doneButton = document.createElement('button');
         doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 taskList.removeChild(listItem);
             }
         });
-
         var buttonsDiv = document.createElement('div');
         buttonsDiv.appendChild(doneButton);
         buttonsDiv.appendChild(deleteButton);
@@ -121,11 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addTaskButton.addEventListener('click', function() {
         var taskInput = document.getElementById('taskInput');
+        var dueDateInput = document.getElementById('dueDateInput');
 
         var task = {
             id: Date.now(),
             content: taskInput.value,
-            completed: false
+            completed: false,
+            dueDate: dueDateInput.value // Add due date
         };
 
         var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -134,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var taskList = document.getElementById('taskList');
         var listItem = document.createElement('li');
-        listItem.textContent = task.content;
+        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ')'; // Display due date
 
         var doneButton = document.createElement('button');
         doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
