@@ -181,4 +181,3 @@ document.addEventListener('DOMContentLoaded', function() {
 darkThemeButton.addEventListener('click', function() {
     document.body.classList.toggle('dark');
 });
-
