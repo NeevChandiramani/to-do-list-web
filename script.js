@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tasks.forEach(function(task) {
         var listItem = document.createElement('li');
-        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ')'; // Display due date
+        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ', Time Estimate: ' + task.time + ' mins)'; // Display due date and time estimate
 
         var doneButton = document.createElement('button');
         doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
@@ -125,21 +125,53 @@ document.addEventListener('DOMContentLoaded', function() {
     addTaskButton.addEventListener('click', function() {
         var taskInput = document.getElementById('taskInput');
         var dueDateInput = document.getElementById('dueDateInput');
+        var taskTimeInput = document.getElementById('taskTime'); // New line
+
+        var taskContent = taskInput.value;
+        var dueDate = dueDateInput.value;
+        var taskTime = parseInt(taskTimeInput.value); // Convert to integer
+
+        if (!taskContent.trim()) {
+            alert('Please enter a task.');
+            return;
+        }
+        if (!dueDate) {
+            alert('Please select a due date.');
+            return;
+        }
+        if (isNaN(taskTime) || taskTime <= 0) { // Check if taskTime is a valid number
+            alert('Please enter a valid time estimate for the task.');
+            return;
+        }
 
         var task = {
             id: Date.now(),
-            content: taskInput.value,
+            content: taskContent,
             completed: false,
-            dueDate: dueDateInput.value // Add due date
+            dueDate: dueDate,
+            time: taskTime // Store estimated time
         };
 
         var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(tasks));
 
-        var taskList = document.getElementById('taskList');
+        renderTasks(tasks);
+
+        taskInput.value = '';
+        dueDateInput.value = '';
+        taskTimeInput.value = ''; // Clear task time input
+    });
+});
+
+// Function to render tasks
+function renderTasks(tasks) {
+    var taskList = document.getElementById('taskList');
+    taskList.innerHTML = ''; // Clear existing tasks
+
+    tasks.forEach(function(task) {
         var listItem = document.createElement('li');
-        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ')'; // Display due date
+        listItem.textContent = task.content + ' (Due: ' + task.dueDate + ', Time Estimate: ' + task.time + ' mins)'; // Display due date and time estimate
 
         var doneButton = document.createElement('button');
         doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
@@ -148,9 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
             task.completed = true;
             localStorage.setItem('tasks', JSON.stringify(tasks));
             listItem.style.textDecoration = 'line-through';
-            // Remove the list item from its current position
             taskList.removeChild(listItem);
-            // Append the list item to the end of the list
             taskList.appendChild(listItem);
         });
 
@@ -165,17 +195,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 taskList.removeChild(listItem);
             }
         });
-
         var buttonsDiv = document.createElement('div');
         buttonsDiv.appendChild(doneButton);
         buttonsDiv.appendChild(deleteButton);
 
         listItem.appendChild(buttonsDiv);
         taskList.appendChild(listItem);
-
-        taskInput.value = '';
     });
-});
+}
 
 // Dark Theme
 darkThemeButton.addEventListener('click', function() {
