@@ -7,6 +7,7 @@ var signUpButton = document.getElementById('signUpButton');
 var closeButton = document.querySelector('.close');
 var addTaskButton = document.getElementById('addTaskButton');
 var darkThemeButton = document.getElementById('themeButton');
+var sortSelect = document.getElementById('sortSelect'); // Added this line
 
 // Load tasks from localStorage on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -207,4 +208,22 @@ function renderTasks(tasks) {
 // Dark Theme
 darkThemeButton.addEventListener('click', function() {
     document.body.classList.toggle('dark');
+});
+
+// Sort tasks by due date
+sortSelect.addEventListener('change', function() {
+    var sortOrder = sortSelect.value;
+    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    if (sortOrder === 'asc') {
+        tasks.sort(function(a, b) {
+            return new Date(a.dueDate) - new Date(b.dueDate);
+        });
+    } else if (sortOrder === 'desc') {
+        tasks.sort(function(a, b) {
+            return new Date(b.dueDate) - new Date(a.dueDate);
+        });
+    }
+
+    renderTasks(tasks);
 });
