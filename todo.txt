@@ -14,4 +14,6 @@ todo
 - add the possibility to add tasks to projects
 - add the possibility to to search for tasks by keywords
 - data syncing - Automatic syncing across devices so that users can access their to-do lists with their account from anywhere, whether on a computer, smartphone, or tablet.
-- 
+
+
+## Feel free to contribute and improve the project with me! 🚀
