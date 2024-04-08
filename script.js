@@ -8,6 +8,47 @@ var closeButton = document.querySelector('.close');
 var addTaskButton = document.getElementById('addTaskButton');
 var darkThemeButton = document.getElementById('themeButton');
 
+// Load tasks from localStorage on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    var taskList = document.getElementById('taskList');
+
+    tasks.forEach(function(task) {
+        var listItem = document.createElement('li');
+        listItem.textContent = task.content;
+
+        var doneButton = document.createElement('button');
+        doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
+        doneButton.classList.add('done-button');
+        doneButton.addEventListener('click', function() {
+            task.completed = true;
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            listItem.style.textDecoration = 'line-through';
+            taskList.removeChild(listItem);
+            taskList.appendChild(listItem);
+        });
+
+        var deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<img src="cross.png" alt="Delete" style="width: 20px; height: 20px;">';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            var index = tasks.indexOf(task);
+            if (index !== -1) {
+                tasks.splice(index, 1);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                taskList.removeChild(listItem);
+            }
+        });
+
+        var buttonsDiv = document.createElement('div');
+        buttonsDiv.appendChild(doneButton);
+        buttonsDiv.appendChild(deleteButton);
+
+        listItem.appendChild(buttonsDiv);
+        taskList.appendChild(listItem);
+    });
+});
+
 // Current user
 var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
