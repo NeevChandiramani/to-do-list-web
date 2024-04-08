@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         listItem.textContent = task.content;
 
         var doneButton = document.createElement('button');
-        doneButton.innerHTML = '<img src="check3.png" alt="Done" style="width: 20px; height: 20px;">';
+        doneButton.innerHTML = '<img src="check.png" alt="Done" style="width: 20px; height: 20px;">';
         doneButton.classList.add('done-button');
         doneButton.addEventListener('click', function() {
             task.completed = true;
