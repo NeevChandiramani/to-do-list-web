@@ -5,7 +5,8 @@ var userModal = document.getElementById('userModal');
 var signInButton = document.getElementById('signInButton');
 var signUpButton = document.getElementById('signUpButton');
 var closeButton = document.querySelector('.close');
-var addTaskButton = document.getElementById('addTaskButton'); // Added this line
+var addTaskButton = document.getElementById('addTaskButton');
+var darkThemeButton = document.getElementById('themeButton');
 
 // Current user
 var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -74,6 +75,64 @@ logoutButton.addEventListener('click', function() {
 });
 
 // Add Task
-addTaskButton.addEventListener('click', function() {
-    console.log('The "Add Task" button was clicked.');
+document.addEventListener('DOMContentLoaded', function() {
+    var addTaskButton = document.getElementById('addTaskButton');
+
+    addTaskButton.addEventListener('click', function() {
+        var taskInput = document.getElementById('taskInput');
+
+        var task = {
+            id: Date.now(),
+            content: taskInput.value,
+            completed: false
+        };
+
+        var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        var taskList = document.getElementById('taskList');
+        var listItem = document.createElement('li');
+        listItem.textContent = task.content;
+
+        var doneButton = document.createElement('button');
+        doneButton.innerHTML = '<img src="check3.png" alt="Done" style="width: 20px; height: 20px;">';
+        doneButton.classList.add('done-button');
+        doneButton.addEventListener('click', function() {
+            task.completed = true;
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            listItem.style.textDecoration = 'line-through';
+            // Remove the list item from its current position
+            taskList.removeChild(listItem);
+            // Append the list item to the end of the list
+            taskList.appendChild(listItem);
+        });
+
+        var deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<img src="cross.png" alt="Delete" style="width: 20px; height: 20px;">';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', function() {
+            var index = tasks.indexOf(task);
+            if (index !== -1) {
+                tasks.splice(index, 1);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                taskList.removeChild(listItem);
+            }
+        });
+
+        var buttonsDiv = document.createElement('div');
+        buttonsDiv.appendChild(doneButton);
+        buttonsDiv.appendChild(deleteButton);
+
+        listItem.appendChild(buttonsDiv);
+        taskList.appendChild(listItem);
+
+        taskInput.value = '';
+    });
 });
+
+// Dark Theme
+darkThemeButton.addEventListener('click', function() {
+    document.body.classList.toggle('dark');
+});
+
