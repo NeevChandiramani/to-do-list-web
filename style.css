@@ -146,6 +146,6 @@ button {
 .done-button img,
 .delete-button img {
     display: block;
-    width: 20px; /* Adjust width and height according to your image */
-    height: 20px; /* Adjust width and height according to your image */
+    width: 20px; /* Adjust width and height according to the image */
+    height: 20px; 
 }
