@@ -5,7 +5,6 @@ todo
 - add tags to tasks
 - add priority to tasks
 - add a button to filter tasks by tags
-- add a button to sort tasks by date
 - add a button to sort tasks by priority
 - add a button to filter tasks by due date
 - add the possibility to edit tasks
